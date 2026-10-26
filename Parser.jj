@@ -1,0 +1,42 @@
+/*
+ * Compilador de Mini-REXX a maquina de pila abstracta.
+ * Practica 02 - Procesadores del Lenguaje.
+ */
+options {
+  STATIC = false; // Para que no sea estatico y se pueda usar en otros programas.
+  IGNORE_CASE = true; // No distingue minusculas de mayusculas.
+}
+
+PARSER_BEGIN(REXXCompiler)
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+public class REXXCompiler {
+
+    public static void main(String[] args) throws Exception {
+        InputStream input;
+        if (args.length > 0) {
+            input = new FileInputStream(args[0]);
+        } else {
+            input = System.in;
+        }
+        REXXCompiler compiler = new REXXCompiler(input);
+        compiler.programa();
+    }
+}
+
+PARSER_END(REXXCompiler)
+
+/* --- Reglas lexicas --- */
+SKIP : {
+    " "
+  | "\t"
+  | "\r"
+  | "\n"
+}
+
+/* --- Inicio del analizador --- */
+void programa() : {} {
+  <EOF>
+}

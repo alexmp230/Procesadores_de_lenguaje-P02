@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Java compilation artifacts
+*.class
+
+# Materiales internos, doc, y el enunciado
+materiales/
+
+# Ficheros Java autogenerados por JavaCC
+REXXCompiler.java
+REXXCompilerTokenManager.java
+REXXCompilerConstants.java
+SimpleCharStream.java
+Token.java
+TokenMgrError.java
+ParseException.java
