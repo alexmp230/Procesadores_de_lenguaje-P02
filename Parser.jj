@@ -144,6 +144,7 @@ void entrada() :
 
 /* --- Expresiones aritmeticas --- */
 
+// Evalua sumas y restas (menor importancia)
 void expresion() : {} {
   termino()
   (
@@ -152,6 +153,7 @@ void expresion() : {} {
   )*
 }
 
+// Evalua multiplicaciones y divisiones (importancia media)
 void termino() : {} {
   factor()
   (
@@ -160,6 +162,7 @@ void termino() : {} {
   )*
 }
 
+// Gestionamos los signos, restando a 0 el número para que sea negativo
 void factor() :
 {
   boolean esNegativo = false;
@@ -177,6 +180,7 @@ void factor() :
   }
 }
 
+// Elementos basicos: numeros, variables o expresiones agrupadas entre parentesis
 void atomo() :
 {
   Token t;
@@ -185,4 +189,20 @@ void atomo() :
     t=<NUM> { System.out.println("mete " + t.image); }
   | t=<ID>  { System.out.println("valord " + t.image.toLowerCase()); }
   | "(" expresion() ")"
+}
+
+/* --- Condiciones logicas --- */
+
+// Evaluamos los operadores relacionales
+void condicion() : {}
+{
+  expresion()
+  (
+      "="  expresion() { System.out.println("esigual"); }
+    | "<>" expresion() { System.out.println("esigual"); System.out.println("not"); }
+    | "<=" expresion() { System.out.println("esmayor"); System.out.println("not"); }
+    | ">=" expresion() { System.out.println("esmenor"); System.out.println("not"); }
+    | "<"  expresion() { System.out.println("esmenor"); }
+    | ">"  expresion() { System.out.println("esmayor"); }
+  )
 }
