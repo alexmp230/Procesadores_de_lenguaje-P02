@@ -1,7 +1,8 @@
 /*
- * Compilador de Mini-REXX a maquina de pila abstracta.
- * Practica 02 - Procesadores del Lenguaje.
+ * Compilador de Mini-REXX
+ * Practica 02 - Procesadores del Lenguaje
  */
+ 
 options {
   STATIC = false; // Para que no sea estatico y se pueda usar en otros programas.
   IGNORE_CASE = true; // No distingue minusculas de mayusculas.
@@ -29,11 +30,41 @@ public class REXXCompiler {
 PARSER_END(REXXCompiler)
 
 /* --- Reglas lexicas --- */
+
+// Caracteres y separadores ignorados
 SKIP : {
     " "
   | "\t"
   | "\r"
   | "\n"
+  | ";" // Hemos encontrado que el enunciado dice que ignoremos los ; también
+}
+
+// Palabras reservadas
+TOKEN : {
+    < PULL: "PULL" >
+  | < SAY: "SAY" >
+  | < IF: "IF" >
+  | < THEN: "THEN" >
+  | < ELSE: "ELSE" >
+  | < DO: "DO" >
+  | < END: "END" >
+  | < WHILE: "WHILE" >
+  | < UNTIL: "UNTIL" >
+  | < TO: "TO" >
+  | < BY: "BY" >
+  | < SELECT: "SELECT" >
+  | < WHEN: "WHEN" >
+  | < OTHERWISE: "OTHERWISE" >
+  | < CHOOSE: "CHOOSE" >
+  | < ADDING: "ADDING" >
+  | < SUBTRACTING: "SUBTRACTING" >
+}
+
+// Otros elementos
+TOKEN : {
+    < NUM: (["0"-"9"])+ >
+  | < ID: (["a"-"z", "A"-"Z", "_"]) (["a"-"z", "A"-"Z", "0"-"9", "_"])* >
 }
 
 /* --- Inicio del analizador --- */
