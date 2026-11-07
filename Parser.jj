@@ -91,7 +91,8 @@ void sentencias() : {} {
 }
 
 void sentencia() : {} {
-  entrada()
+    entrada()
+  | expresion()
 }
 
 void entrada() :
@@ -103,4 +104,31 @@ void entrada() :
   {
     System.out.println("lee " + id.image.toLowerCase()); //imprimimos en minusculas
   }
+}
+
+/* --- Expresiones aritmeticas --- */
+
+void expresion() : {} {
+  termino()
+  (
+      "+" termino() { System.out.println("add"); }
+    | "-" termino() { System.out.println("sub"); }
+  )*
+}
+
+void termino() : {} {
+  atomo()
+  (
+      "*" atomo() { System.out.println("mul"); }
+    | "/" atomo() { System.out.println("div"); }
+  )*
+}
+
+void atomo() :
+{
+  Token t;
+}
+{
+    t=<NUM> { System.out.println("mete " + t.image); }
+  | t=<ID>  { System.out.println("valord " + t.image.toLowerCase()); }
 }
