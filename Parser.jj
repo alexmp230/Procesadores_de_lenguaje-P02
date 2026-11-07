@@ -80,7 +80,20 @@ TOKEN : {
     >
 }
 
-/* --- Inicio del analizador --- */
+/* --- Producciones gramaticales --- */
+
 void programa() : {} {
-  <EOF>
+  sentencias() <EOF>
+}
+
+void sentencias() : {} {
+  ( sentencia() )*
+}
+
+void sentencia() : {} {
+  entrada()
+}
+
+void entrada() : {} {
+  <PULL> <ID>
 }
