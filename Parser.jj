@@ -93,6 +93,7 @@ void sentencias() : {} {
 void sentencia() : {} {
     entrada()
   | asignacion()
+  | salida()
 }
 
 void asignacion() :
@@ -103,6 +104,31 @@ void asignacion() :
   id=<ID> "=" { System.out.println("valori " + id.image.toLowerCase()); }
   expresion()
   { System.out.println("asigna"); }
+}
+
+void salida() :
+{
+  int numElementos = 0;
+}
+{
+  <SAY>
+  elem_salida() { numElementos++; }
+  (
+    ","
+    elem_salida() { numElementos++; }
+  )*
+  {
+    System.out.println("print " + numElementos);
+  }
+}
+
+void elem_salida() :
+{
+  Token cad;
+}
+{
+    cad=<CAD> { System.out.println("metecad " + cad.image); }
+  | expresion()
 }
 
 void entrada() :
