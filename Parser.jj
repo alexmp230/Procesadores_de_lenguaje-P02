@@ -92,7 +92,17 @@ void sentencias() : {} {
 
 void sentencia() : {} {
     entrada()
-  | expresion()
+  | asignacion()
+}
+
+void asignacion() :
+{
+  Token id;
+}
+{
+  id=<ID> "=" { System.out.println("valori " + id.image.toLowerCase()); }
+  expresion()
+  { System.out.println("asigna"); }
 }
 
 void entrada() :
@@ -117,11 +127,28 @@ void expresion() : {} {
 }
 
 void termino() : {} {
-  atomo()
+  factor()
   (
-      "*" atomo() { System.out.println("mul"); }
-    | "/" atomo() { System.out.println("div"); }
+      "*" factor() { System.out.println("mul"); }
+    | "/" factor() { System.out.println("div"); }
   )*
+}
+
+void factor() :
+{
+  boolean esNegativo = false;
+}
+{
+  (
+      "+"
+    | "-" { esNegativo = true; System.out.println("mete 0"); }
+  )?
+  atomo()
+  {
+    if (esNegativo) {
+      System.out.println("sub");
+    }
+  }
 }
 
 void atomo() :
@@ -131,4 +158,5 @@ void atomo() :
 {
     t=<NUM> { System.out.println("mete " + t.image); }
   | t=<ID>  { System.out.println("valord " + t.image.toLowerCase()); }
+  | "(" expresion() ")"
 }
