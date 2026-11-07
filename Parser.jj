@@ -94,6 +94,13 @@ void sentencia() : {} {
   entrada()
 }
 
-void entrada() : {} {
-  <PULL> <ID>
+void entrada() :
+{
+  Token id;
+}
+{
+  <PULL> id=<ID> // asignamos el <id> detectado a la variable id
+  {
+    System.out.println("lee " + id.image.toLowerCase()); //imprimimos en minusculas
+  }
 }
