@@ -113,7 +113,63 @@ void bucle() : {}
   (
       bucleWhile()
     | bucleUntil()
+    | bucleContador()
   )
+}
+
+// Bucle con contador: DO id = expresión TO expresión 
+void bucleContador() :
+{
+  Token id;
+  Token paso = null;
+  boolean esResta = false;
+  int lblInicio = nuevaEtiqueta();
+  int lblFin = nuevaEtiqueta();
+}
+{
+  id=<ID> "="
+  {
+    System.out.println("valori " + id.image.toLowerCase());
+  }
+  expresion()
+  {
+    System.out.println("asigna");
+    System.out.println("LBL" + lblInicio + ":");
+    System.out.println("valord " + id.image.toLowerCase());
+  }
+  <TO>
+  expresion()
+  {
+    System.out.println("esmayor");
+    System.out.println("siciertovea LBL" + lblFin);
+  }
+  (
+    <BY>
+    (
+        <ADDING>
+      | <SUBTRACTING> { esResta = true; }
+    )?
+    paso=<NUM>
+    {
+      if (Integer.parseInt(paso.image) == 0) {
+        System.err.println("Error semantico: El valor de actualizacion de BY no puede ser cero.");
+        throw new ParseException("El paso del bucle no puede ser 0");
+      }
+    }
+  )?
+  sentencias()
+  <END>
+  {
+    String valorPaso = (paso != null) ? paso.image : "1";
+    String operacion = esResta ? "sub" : "add";
+    System.out.println("valori " + id.image.toLowerCase());
+    System.out.println("valord " + id.image.toLowerCase());
+    System.out.println("mete " + valorPaso);
+    System.out.println(operacion);
+    System.out.println("asigna");
+    System.out.println("vea LBL" + lblInicio);
+    System.out.println("LBL" + lblFin + ":");
+  }
 }
 
 // Bucle que comprueba condicion al inicio y repite mientras sea verdadera
