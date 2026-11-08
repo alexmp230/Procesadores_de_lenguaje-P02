@@ -111,7 +111,8 @@ void bucle() : {}
 {
   <DO>
   (
-    bucleWhile()
+      bucleWhile()
+    | bucleUntil()
   )
 }
 
@@ -134,6 +135,32 @@ void bucleWhile() :
   <END>
   {
     System.out.println("vea LBL" + lblInicio);
+    System.out.println("LBL" + lblFin + ":");
+  }
+}
+
+// Bucle que ejecuta el cuerpo al menos una vez y repite hasta que la condicion sea cierta
+void bucleUntil() :
+{
+  int lblCond = nuevaEtiqueta();
+  int lblCuerpo = nuevaEtiqueta();
+  int lblFin = nuevaEtiqueta();
+}
+{
+  <UNTIL>
+  {
+    System.out.println("vea LBL" + lblCuerpo);
+    System.out.println("LBL" + lblCond + ":");
+  }
+  condicion()
+  {
+    System.out.println("siciertovea LBL" + lblFin);
+    System.out.println("LBL" + lblCuerpo + ":");
+  }
+  sentencias()
+  <END>
+  {
+    System.out.println("vea LBL" + lblCond);
     System.out.println("LBL" + lblFin + ":");
   }
 }
