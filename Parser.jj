@@ -101,6 +101,45 @@ void sentencia() : {} {
     entrada()
   | asignacion()
   | salida()
+  | condicional()
+}
+
+// Bloque de sentencias DO ... END
+void bloque() : {}
+{
+  <DO> sentencias() <END>
+}
+
+// Estructura condicional IF-THEN y ELSE
+void condicional() :
+{
+  int lblElse = nuevaEtiqueta();
+  int lblFin = -1;
+  boolean tieneElse = false;
+}
+{
+  <IF> condicion() <THEN>
+  {
+    System.out.println("sifalsovea LBL" + lblElse);
+  }
+  bloque()
+  (
+    <ELSE>
+    {
+      tieneElse = true;
+      lblFin = nuevaEtiqueta();
+      System.out.println("vea LBL" + lblFin);
+      System.out.println("LBL" + lblElse + ":");
+    }
+    bloque()
+  )?
+  {
+    if (tieneElse) {
+      System.out.println("LBL" + lblFin + ":");
+    } else {
+      System.out.println("LBL" + lblElse + ":");
+    }
+  }
 }
 
 void asignacion() :
