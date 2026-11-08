@@ -102,6 +102,41 @@ void sentencia() : {} {
   | asignacion()
   | salida()
   | condicional()
+  | seleccion()
+}
+
+// Estructura de seleccion multiple SELECT ... WHEN ... OTHERWISE ... END
+void seleccion() :
+{
+  int lblFin = nuevaEtiqueta();
+}
+{
+  <SELECT>
+  ( clausulaWHEN(lblFin) )+
+  (
+    <OTHERWISE> bloque()
+  )?
+  <END>
+  {
+    System.out.println("LBL" + lblFin + ":");
+  }
+}
+
+// Rama individual WHEN: evalua condicion, salta a la siguiente rama si es falsa o al final si es cierta
+void clausulaWHEN(int lblFin) :
+{
+  int lblSiguiente = nuevaEtiqueta();
+}
+{
+  <WHEN> condicion() <THEN>
+  {
+    System.out.println("sifalsovea LBL" + lblSiguiente);
+  }
+  bloque()
+  {
+    System.out.println("vea LBL" + lblFin);
+    System.out.println("LBL" + lblSiguiente + ":");
+  }
 }
 
 // Bloque de sentencias DO ... END
