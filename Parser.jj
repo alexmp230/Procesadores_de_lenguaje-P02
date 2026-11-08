@@ -103,6 +103,39 @@ void sentencia() : {} {
   | salida()
   | condicional()
   | seleccion()
+  | bucle()
+}
+
+// Bucle DO WHILE, DO UNTIL o DO contador
+void bucle() : {}
+{
+  <DO>
+  (
+    bucleWhile()
+  )
+}
+
+// Bucle que comprueba condicion al inicio y repite mientras sea verdadera
+void bucleWhile() :
+{
+  int lblInicio = nuevaEtiqueta();
+  int lblFin = nuevaEtiqueta();
+}
+{
+  <WHILE>
+  {
+    System.out.println("LBL" + lblInicio + ":");
+  }
+  condicion()
+  {
+    System.out.println("sifalsovea LBL" + lblFin);
+  }
+  sentencias()
+  <END>
+  {
+    System.out.println("vea LBL" + lblInicio);
+    System.out.println("LBL" + lblFin + ":");
+  }
 }
 
 // Estructura de seleccion multiple SELECT ... WHEN ... OTHERWISE ... END
